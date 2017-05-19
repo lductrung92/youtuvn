@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="9f9f4bf3-b86f-4418-a7ff-b74644685f40" name="lae" url="http://ftp.laedaily.webstarterz.com">
+        <fileTransfer host="ftp.laedaily.webstarterz.com" port="21" rootFolder="/public_html/laedaily.com">
+          <advancedOptions>
+            <advancedOptions compatibilityMode="true" dataProtectionLevel="Private" passiveMode="true" showHiddenFiles="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
