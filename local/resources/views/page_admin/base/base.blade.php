@@ -14,6 +14,7 @@
     <link href="lib_admin/assets/css/core.css" rel="stylesheet" type="text/css">
     <link href="lib_admin/assets/css/components.css" rel="stylesheet" type="text/css">
     <link href="lib_admin/assets/css/colors.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="lib_admin/jAlert/dist/jAlert.css">
     <!-- /global stylesheets -->
 
     <!-- Core JS files -->

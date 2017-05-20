@@ -12,11 +12,12 @@ use Illuminate\Support\Facades\View;
 class CategoryController extends Controller
 {
     public function index () {
-        return View::make('page_admin.category.list');
+        $categories = Category::all();
+        return View::make('page_admin.category.list', compact('categories'));
     }
 
     public function showFormInsert () {
-        $categories = DB::table('categories')->select('categories.id', 'categories.title')->get();
+        $categories = Category::where('pid', '=', 0)->get();
         return View::make('page_admin.category.insert', compact('categories'));
     }
 
@@ -28,18 +29,28 @@ class CategoryController extends Controller
         $cate->keyword = $request->textKeyword;
         $cate->status = empty($request->cate_status) ? 0 : 1;
         $cate->save();
-        return back()->with('success', 'Thêm danh mục thành công.');
+        return back()->with(['success', 'Thêm danh mục thành công.']);
     }
 
-    public function showFormUpdate () {
-
+    public function showFormUpdate ($id) {
+        $cate = Category::find($id);
+        $categories = Category::where('pid', '=', 0)->get();
+        return View::make('page_admin.category.update', compact('cate', 'categories'));
     }
 
-    public function update () {
-
+    public function update (CateRequest $request, $id) {
+        $cate = Category::find($id);
+        $cate->pid = empty($request->cate_pid) ? $request->selCate : 0;
+        $cate->title = $request->txtName;
+        $cate->alias = changeTitle($request->txtName);
+        $cate->keyword = $request->textKeyword;
+        $cate->status = empty($request->cate_status) ? 0 : 1;
+        $cate->update();
+        return back()->with(['success', 'Thêm danh mục thành công.']);
     }
 
-    public function delete() {
-
+    public function delete($id) {
+        $cate = Category::find($id);
+        return back()->with(['success', 'Xóa danh mục '. $cate->title . ' thành công.']);
     }
 }
