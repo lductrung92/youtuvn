@@ -43,10 +43,10 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="administrator/category"><i class="icon-youtube3"></i> <span>Youtube</span></a>
+                        <a href="administrator/youtube"><i class="icon-youtube3"></i> <span>Youtube</span></a>
                         <ul>
-                            <li><a href="administrator/category/list">Danh sách</a></li>
-                            <li><a href="administrator/category/insert">Thêm mới</a></li>
+                            <li><a href="administrator/youtube/list">Danh sách</a></li>
+                            <li><a href="administrator/youtube/insert">Thêm mới</a></li>
                         </ul>
                     </li>
                     <li>

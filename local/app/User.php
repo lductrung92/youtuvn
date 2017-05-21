@@ -24,6 +24,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'rid', 'name', 'password', 'email' , 'avatar' , 'phone' , 'address', 'remember_token',
     ];
+
+    public function youtubes () {
+        return $this->hasMany('App\Youtube', 'uid', 'id');
+    }
+
+    public function role () {
+        return $this->belongsTo('App\Role', 'uid', 'id');
+    }
 }

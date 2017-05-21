@@ -29,7 +29,7 @@ class CategoryController extends Controller
         $cate->keyword = $request->textKeyword;
         $cate->status = empty($request->cate_status) ? 0 : 1;
         $cate->save();
-        return back()->with(['success', 'Thêm danh mục thành công.']);
+        return back()->with('success', 'Thêm danh mục thành công.');
     }
 
     public function showFormUpdate ($id) {
@@ -46,11 +46,12 @@ class CategoryController extends Controller
         $cate->keyword = $request->textKeyword;
         $cate->status = empty($request->cate_status) ? 0 : 1;
         $cate->update();
-        return back()->with(['success', 'Thêm danh mục thành công.']);
+        return back()->with('success', 'Thêm danh mục thành công.');
     }
 
     public function delete($id) {
         $cate = Category::find($id);
-        return back()->with(['success', 'Xóa danh mục '. $cate->title . ' thành công.']);
+        $cate->delete();
+        return back()->with('success', 'Xóa danh mục '. $cate->title . ' thành công.');
     }
 }

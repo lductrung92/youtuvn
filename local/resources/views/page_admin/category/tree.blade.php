@@ -3,7 +3,7 @@
         <li>
             <a id="{{ $child->id }}">{{ $child->title }}</a>
             @if(count($child->childs))
-                @include('page_admin.category.tre',['childs' => $child->childs])
+                @include('page_admin.category.tree',['childs' => $child->childs])
             @endif
         </li>
     @endforeach

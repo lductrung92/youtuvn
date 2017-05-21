@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\PageHome;
 
+use App\Youtube;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\DB;
 
-class HomeController extends Controller
+class HomeController extends BaseController
 {
     public function index () {
-        return View::make('page_home.base.base');
+    	$youtubes = new Youtube();
+    	$left_videos = $youtubes->get_new_video();
+
+        return View::make('page_home.index', compact('left_videos'));
     }
 }

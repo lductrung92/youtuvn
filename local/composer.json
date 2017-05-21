@@ -23,7 +23,8 @@
         },
         "files": [
             "app/Functions/ChangeTitle.php",
-            "app/Functions/City.php"
+            "app/Functions/City.php",
+            "app/Functions/Youtube.php"
         ]
     },
     "autoload-dev": {

@@ -16,4 +16,8 @@ class Category extends Model
     public function parent () {
         return $this->belongsTo('App\Category', 'pid', 'id');
     }
+
+    public function youtubes () {
+        return $this->hasMany('App\Youtube', 'cid', 'id');
+    }
 }
