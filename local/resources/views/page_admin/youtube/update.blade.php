@@ -110,6 +110,13 @@
                                     <input type="text" class="form-control" name="sumView" value="{{ $video->viewCount }}" placeholder="Tổng lượt xem">
                                 </div>
 
+                                <div class="form-group {{ empty($errors->messages()['time_video']) ? '' : 'has-error' }}">
+                                    <label>Độ dài video:</label>
+                                    <input type="text" class="form-control" value="{{ $video->time }}"l name="time_video" placeholder="Tên kênh youtube">
+                                    
+                                    <span class="help-block">{{ empty($errors->messages()['time_video']) ? '' : showError($errors->messages()['time_video']) }}</span>
+                                </div>
+
                                 <div class="form-group">
                                     <label>Like:</label>
                                     <input type="text" class="form-control" name="sumLike" value="{{ $video->likeCount }}" placeholder="Tổng lượt thích">
@@ -125,11 +132,6 @@
                                     <input type="text" class="form-control" name="nameChange" value="{{ $video->author }}" placeholder="Tên kênh youtube">
                                 </div>
 
-                                <div class="form-group">
-                                    <label>Url image:</label>
-                                    <input type="text" class="form-control" name="imgUrl" value="{{ $video->image }}" placeholder="Url hình ảnh">
-                                </div>
-                                
                             </div>
 
                         </fieldset>
@@ -138,6 +140,12 @@
                         <div class="col-md-6">
                             <fieldset>
                                 <legend class="text-semibold"><i class="icon-feed2"></i></legend>
+
+                                <div class="form-group">
+                                    <label>ID Video:</label>
+                                    <input type="text" class="form-control" name="id_video" value="{{ $video->id_video }}" placeholder="Url video">
+                                </div>
+
                                 <div class="form-group {{ empty($errors->messages()['txtLink']) ? '' : 'has-error' }}">
                                     <label>Ngày đăng:</label>
                                     <input type="text" class="form-control" name="timeCreated" value="{{ $video->created_at }}" placeholder="Ngày đăng">

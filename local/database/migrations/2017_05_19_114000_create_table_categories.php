@@ -20,6 +20,7 @@ class CreateTableCategories extends Migration
             $table->string('alias');
             $table->string('keyword')->nullable();
             $table->tinyInteger('status')->nullable()->default(0);
+            $table->integer('stt')->nullable()->default(0);
             $table->timestamps();
         });
     }

@@ -118,6 +118,12 @@
                                     <input type="text" class="form-control" name="sumView" placeholder="Tổng lượt xem">
                                 </div>
 
+                                <div class="form-group {{ empty($errors->messages()['time_video']) ? '' : 'has-error' }}">
+                                    <label>Độ dài video:</label>
+                                    <input type="text" class="form-control" name="time_video" placeholder="Tên kênh youtube">
+                                    <span class="help-block">{{ empty($errors->messages()['time_video']) ? '' : showError($errors->messages()['time_video']) }}</span>
+                                </div>
+
                                 <div class="form-group">
                                     <label>Like:</label>
                                     <input type="text" class="form-control" name="sumLike" placeholder="Tổng lượt thích">
@@ -133,11 +139,6 @@
                                     <input type="text" class="form-control" name="nameChange" placeholder="Tên kênh youtube">
                                 </div>
 
-                                <div class="form-group">
-                                    <label>Url image:</label>
-                                    <input type="text" class="form-control" name="imgUrl" placeholder="Url hình ảnh">
-                                </div>
-                                
                             </div>
 
                         </fieldset>
@@ -146,6 +147,12 @@
                         <div class="col-md-6">
                             <fieldset>
                                 <legend class="text-semibold"><i class="icon-feed2"></i></legend>
+
+                                <div class="form-group">
+                                    <label>ID Video:</label>
+                                    <input type="text" class="form-control" name="id_video" placeholder="Url video">
+                                </div>
+
                                 <div class="form-group {{ empty($errors->messages()['txtLink']) ? '' : 'has-error' }}">
                                     <label>Ngày đăng:</label>
                                     <input type="text" class="form-control" name="timeCreated" placeholder="Ngày đăng">
@@ -159,7 +166,7 @@
 
                                 <div class="form-group">
                                     <label>Keyword: </label>
-                                    <textarea rows="6" cols="5" class="form-control" name="txtKeyword" placeholder="Nhập keyword"></textarea>
+                                    <textarea rows="5" cols="5" class="form-control" name="txtKeyword" placeholder="Nhập keyword"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label class="checkbox-inline">
@@ -196,10 +203,11 @@
                     var sumLike = $("input[name=sumLike]");
                     var sumDislike = $("input[name=sumDislike]");
                     var nameChange = $("input[name=nameChange]");
-                    var imgUrl = $("input[name=imgUrl]");
+                    var id_video = $("input[name=id_video]");
                     var timeCreated = $("input[name=timeCreated]");
                     var txtKeyword = $("textarea[name=txtKeyword]");
                     var textDes = $("textarea[name=textDes]");
+
                     $("#form_get_video").block({ 
                         message: '<i class="icon-spinner2 spinner"></i>',
                         overlayCSS: {
@@ -225,7 +233,7 @@
                             sumLike.val(obj["likeCount"]);
                             sumDislike.val(obj["dislikeCount"]);
                             nameChange.val(obj["author"]);
-                            imgUrl.val(obj["url_image"]);
+                            id_video.val(obj["id_video"]);
                             timeCreated.val(obj["published"]);
                             txtKeyword.val(obj["keyword"]);
                             $("#some-textarea").data("wysihtml5").editor.setValue(obj["description"]);

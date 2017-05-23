@@ -20,11 +20,12 @@ class CreateYoutubesTable extends Migration
             $table->integer('uid')->unsigned();
             $table->string('title')->unique();
             $table->string('alias');
+            $table->string('id_video');
+            $table->string('time_video')->nullable()->default('');
             $table->integer('viewCount')->nullable()->default(0);
             $table->integer('likeCount')->nullable()->default(0);
             $table->integer('dislikeCount')->nullable()->default(0);
             $table->string('author')->nullable()->default('');
-            $table->string('image');
             $table->text('description');
             $table->text('keyword');
             $table->tinyInteger('status')->nullable()->default(0);

@@ -82,6 +82,11 @@
                                 <span class="help-block">{{ empty($errors->messages()['txtName']) ? '' : showError($errors->messages()['txtName']) }}</span>
                             </div>
 
+                            <div class="form-group" id="stt_ht" style="display: none">
+                                <label>Thứ tự hiển thị:</label>
+                                <input type="text" class="form-control" name="txt_stt" placeholder="Nhập thứ tự hiển thị">
+                            </div>
+
                             <div class="form-group">
                                 <label>Keyword: </label>
                                 <textarea rows="5" cols="5" class="form-control" name="textKeyword" placeholder="Nhập keyword"></textarea>
@@ -129,9 +134,11 @@
         $('input[name=cate_pid]').change(function() {
             if($(this).is(":checked")) {
                 $('#selCate').hide(700);
+                $('#stt_ht').show(700);
             }
             else {
                 $('#selCate').show(700);
+                $('#stt_ht').hide(700);
             }
         });
         $('#tree1').treed();

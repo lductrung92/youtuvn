@@ -44,14 +44,22 @@
             'title' => $snippet["items"][0]["snippet"]["title"],
             'link_custom' => changeTitle($snippet["items"][0]["snippet"]["title"]),
             'description' => $snippet["items"][0]["snippet"]["description"],
-            'url_image' => $snippet["items"][0]["snippet"]["thumbnails"]["high"]["url"],
             'author' => $snippet["items"][0]["snippet"]["channelTitle"],
             'published' => $snippet["items"][0]["snippet"]["publishedAt"],
             'keyword' => $keyword,
             'viewCount' => $statistics["items"][0]["statistics"]["viewCount"],
             'likeCount' => $statistics["items"][0]["statistics"]["likeCount"],
-            'dislikeCount' => $statistics["items"][0]["statistics"]["dislikeCount"]
+            'dislikeCount' => $statistics["items"][0]["statistics"]["dislikeCount"],
+            'id_video' => $url
         );
         return $data;
     }
+
+    function url_image ($url) {
+        $url_arr = explode ('/', $url);
+        $ct = count($url_arr);
+        $name = $url_arr[$ct-1];
+        $url_img = str_replace('/'.$name,'',$url);
+        return $url_img ;
+    } 
 ?>

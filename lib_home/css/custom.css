@@ -1,0 +1,13 @@
+#logo a { font-family: 'Roboto'; font-weight: 700; font-size: 36px; color: #ffffff;text-transform:uppercase; }
+.menu li, .menu li a, .mts-cart a, .video-header-url a { font-family: 'Roboto'; font-weight: 700; font-size: 13px; color: #ffffff;text-transform:uppercase; }
+.home-post-title a { font-family: 'Roboto'; font-weight: 700; font-size: 15px; color: #000000; }
+.single-title, .page h1.title { font-family: 'Roboto'; font-weight: 700; font-size: 20px; color: #000000; }
+body { font-family: 'Roboto'; font-weight: normal; font-size: 14px; color: #000000; }
+#sidebars .widget { font-family: 'Roboto'; font-weight: normal; font-size: 14px; color: #444444; }
+#site-footer, footer .menu li a { font-family: 'Roboto'; font-weight: normal; font-size: 14px; color: #6f6f6f; }
+h1 { font-family: 'Roboto'; font-weight: 700; font-size: 28px; color: #000000; }
+h2 { font-family: 'Roboto'; font-weight: 700; font-size: 24px; color: #000000; }
+h3 { font-family: 'Roboto'; font-weight: 700; font-size: 22px; color: #000000; }
+h4 { font-family: 'Roboto'; font-weight: 700; font-size: 20px; color: #000000; }
+h5 { font-family: 'Roboto'; font-weight: 700; font-size: 18px; color: #000000; }
+h6 { font-family: 'Roboto'; font-weight: 700; font-size: 16px; color: #000000; }

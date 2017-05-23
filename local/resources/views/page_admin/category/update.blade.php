@@ -82,6 +82,11 @@
                                 <span class="help-block">{{ empty($errors->messages()['txtName']) ? '' : showError($errors->messages()['txtName']) }}</span>
                             </div>
 
+                            <div class="form-group" id="stt_ht" style="display: none">
+                                <label>Thứ tự hiển thị:</label>
+                                <input type="text" class="form-control" name="txt_stt" value="{{ $cate->stt }}" placeholder="Nhập thứ tự hiển thị">
+                            </div>
+
                             <div class="form-group">
                                 <label>Keyword: </label>
                                 <textarea rows="5" cols="5" class="form-control" name="textKeyword" placeholder="Nhập keyword">{{ $cate->keyword }}</textarea>
@@ -129,6 +134,7 @@
 
         if($('input[name=cate_pid]').is(":checked")) {
             $('#selCate').hide();
+            $('#stt_ht').show();
         }
 
         $('input[name=cate_pid]').change(function() {

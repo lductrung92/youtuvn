@@ -9,6 +9,7 @@ use App\Http\Requests\YoutubeRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class VideoController extends Controller
 {
@@ -32,14 +33,15 @@ class VideoController extends Controller
         $youtube->cid = $request->selCate;
         $cate_id = DB::table('categories')->where('id', '=', (int)$request->selCate)->select('categories.pid')->get();
         $youtube->pid = $cate_id[0]->pid;
-        $youtube->uid = 1;
+        $youtube->uid = Auth::user()->id;
         $youtube->title = $request->txtTitle;
         $youtube->alias = $request->txtLink;
+        $youtube->time_video = $request->time_video;
         $youtube->viewCount = $request->sumView;
         $youtube->likeCount = $request->sumLike;
         $youtube->dislikeCount = $request->sumDislike;
         $youtube->author = $request->nameChange;
-        $youtube->image = $request->imgUrl;
+        $youtube->id_video = $request->id_video;
         $youtube->description = $request->textDes;
         $youtube->keyword = $request->txtKeyword;
         $youtube->status = empty($request->video_status) ? 0 : 1;
@@ -60,14 +62,15 @@ class VideoController extends Controller
         $youtube->cid = $request->selCate;
         $cate_id = DB::table('categories')->where('id', '=', (int)$request->selCate)->select('categories.pid')->get();
         $youtube->pid = $cate_id[0]->pid;
-        $youtube->uid = 1;
+        $youtube->uid = Auth::user()->id;
         $youtube->title = $request->txtTitle;
         $youtube->alias = $request->txtLink;
+        $youtube->time_video = $request->time_video;
         $youtube->viewCount = $request->sumView;
         $youtube->likeCount = $request->sumLike;
         $youtube->dislikeCount = $request->sumDislike;
         $youtube->author = $request->nameChange;
-        $youtube->image = $request->imgUrl;
+        $youtube->id_video = $request->id_video;
         $youtube->description = $request->textDes;
         $youtube->keyword = $request->txtKeyword;
         $youtube->status = empty($request->video_status) ? 0 : 1;

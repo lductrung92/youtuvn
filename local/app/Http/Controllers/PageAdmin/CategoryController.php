@@ -28,6 +28,7 @@ class CategoryController extends Controller
         $cate->alias = changeTitle($request->txtName);
         $cate->keyword = $request->textKeyword;
         $cate->status = empty($request->cate_status) ? 0 : 1;
+        $cate->stt = empty($request->txt_stt) ? 0 : $request->txt_stt;
         $cate->save();
         return back()->with('success', 'Thêm danh mục thành công.');
     }
@@ -45,6 +46,7 @@ class CategoryController extends Controller
         $cate->alias = changeTitle($request->txtName);
         $cate->keyword = $request->textKeyword;
         $cate->status = empty($request->cate_status) ? 0 : 1;
+        $cate->stt = empty($request->txt_stt) ? 0 : $request->txt_stt;
         $cate->update();
         return back()->with('success', 'Thêm danh mục thành công.');
     }
