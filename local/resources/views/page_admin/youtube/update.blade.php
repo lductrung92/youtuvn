@@ -78,6 +78,14 @@
                         <fieldset>
                             <legend class="text-semibold"><i class="icon-youtube3"></i> Video</legend>
                             <div id="result_data_01">
+
+                                <div class="form-group">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="styled" name="is_playlist" {{ $video->is_playlist == 1 ? 'checked' : '' }}>
+                                        PlayList
+                                    </label>
+                                </div>
+
                                 <div class="form-group" id="selCate">
                                     <label>Chọn danh mục chủ:</label>
                                     <select data-placeholder="Chọn danh mục" name="selCate" class="select">
@@ -93,6 +101,7 @@
                                         @endif
                                     </select>
                                 </div>
+
                                 <div class="form-group {{ empty($errors->messages()['txtTitle']) ? '' : 'has-error' }}">
                                     <label>Tiêu đề video:</label>
                                     <input type="text" class="form-control" name="txtTitle" value="{{ $video->title }}" placeholder="Nhập tiêu đề video">
@@ -105,28 +114,28 @@
                                     <span class="help-block">{{ empty($errors->messages()['txtLink']) ? '' : showError($errors->messages()['txtLink']) }}</span>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" id="sumView">
                                     <label>Tổng lượt truy cập:</label>
                                     <input type="text" class="form-control" name="sumView" value="{{ $video->viewCount }}" placeholder="Tổng lượt xem">
                                 </div>
 
-                                <div class="form-group {{ empty($errors->messages()['time_video']) ? '' : 'has-error' }}">
+                                <div class="form-group {{ empty($errors->messages()['time_video']) ? '' : 'has-error' }}" id="time_video">
                                     <label>Độ dài video:</label>
                                     <input type="text" class="form-control" value="{{ $video->time }}"l name="time_video" placeholder="Tên kênh youtube">
                                     
                                     <span class="help-block">{{ empty($errors->messages()['time_video']) ? '' : showError($errors->messages()['time_video']) }}</span>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" id="sumLike">
                                     <label>Like:</label>
                                     <input type="text" class="form-control" name="sumLike" value="{{ $video->likeCount }}" placeholder="Tổng lượt thích">
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" id="sumDislike">
                                     <label>Dislike:</label>
                                     <input type="text" class="form-control" name="sumDislike" value="{{ $video->dislikeCount }}" placeholder="Tổng lượt không thích">
                                 </div>
-
+                                
                                 <div class="form-group">
                                     <label>Tên kênh:</label>
                                     <input type="text" class="form-control" name="nameChange" value="{{ $video->author }}" placeholder="Tên kênh youtube">
@@ -140,10 +149,20 @@
                         <div class="col-md-6">
                             <fieldset>
                                 <legend class="text-semibold"><i class="icon-feed2"></i></legend>
-
+                                
                                 <div class="form-group">
                                     <label>ID Video:</label>
                                     <input type="text" class="form-control" name="id_video" value="{{ $video->id_video }}" placeholder="Url video">
+                                </div>
+
+                                <div class="form-group" id="id_playlist">
+                                    <label>ID PlayList:</label>
+                                    <input type="text" class="form-control" name="id_playlist" placeholder="ID PlayList" value="{{ $video->id_playlist }}">
+                                </div>
+
+                                <div class="form-group" id="count_Video">
+                                    <label>Số lượng Video:</label>
+                                    <input type="text" class="form-control" name="count_Video" placeholder="Số lượng Video" value="{{ $video->count_Video }}">
                                 </div>
 
                                 <div class="form-group {{ empty($errors->messages()['txtLink']) ? '' : 'has-error' }}">
@@ -152,18 +171,18 @@
                                     <span class="help-block">{{ empty($errors->messages()['txtLink']) ? '' : showError($errors->messages()['txtLink']) }}</span>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" id="textDes">
                                     <label>Mô tả: </label>
                                     <textarea id="some-textarea" rows="8" class="form-control" name="textDes" placeholder="Nhập mô tả">{{ $video->description }}</textarea>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" id="txtKeyword">
                                     <label>Keyword: </label>
                                     <textarea rows="4" cols="5" class="form-control" name="txtKeyword" placeholder="Nhập keyword">{{ $video->keyword }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" class="styled" name="video_status" checked>
+                                        <input type="checkbox" class="styled" name="video_status" {{ $video->status == 1 ? 'checked' : '' }}>
                                         Hiển thị
                                     </label>
                                 </div>
@@ -185,8 +204,49 @@
 @section('js')
     <script type="text/javascript">
         $('#some-textarea').wysihtml5();
-        $(document).ready(function () {
-            
+        var is_playlist = $('input[name=is_playlist]');
+        if(is_playlist.is(":checked")) {
+            $("#sumView").hide();
+            $("#sumLike").hide();
+            $("#sumDislike").hide();
+            $("#textDes").hide();
+            $("#txtKeyword").hide();
+            $("#time_video").hide();
+            $("#count_Video").show();
+            $("#id_playlist").show();   
+        }
+        else {
+            $("#count_Video").hide();
+            $("#id_playlist").hide();
+            $("#sumView").show();
+            $("#sumLike").show();
+            $("#sumDislike").show();
+            $("#textDes").show();
+            $("#txtKeyword").show();
+            $("#time_video").show();
+        }
+
+        is_playlist.change(function() {
+            if($(this).is(":checked")) {
+                $("#sumView").hide();
+                $("#sumLike").hide();
+                $("#sumDislike").hide();
+                $("#textDes").hide();
+                $("#txtKeyword").hide();
+                $("#time_video").hide();
+                $("#count_Video").show();
+                $("#id_playlist").show();
+            }
+            else {
+                $("#count_Video").hide();
+                $("#id_playlist").hide();
+                $("#sumView").show();
+                $("#sumLike").show();
+                $("#sumDislike").show();
+                $("#textDes").show();
+                $("#txtKeyword").show();
+                $("#time_video").show();
+            }
         });
     </script>
 @endsection

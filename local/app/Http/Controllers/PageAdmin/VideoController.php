@@ -18,8 +18,15 @@ class VideoController extends Controller
         return View::make('page_admin.youtube.list', compact('videos'));
     }
 
-    public function getDataVideo ($url) {
-        $data = getDataYoutube($url, 'AIzaSyCdb0_J_yP7N5VMjeh4hSD9N7QKqyemwfw');
+    public function getDataVideo () {
+        if($_GET['is_playlist'] == 1)
+        {
+            $data = getListDataVideo($_GET['url'], 'AIzaSyCdb0_J_yP7N5VMjeh4hSD9N7QKqyemwfw');
+        }
+        else
+        {
+            $data = getDataYoutube($_GET['url'], 'AIzaSyCdb0_J_yP7N5VMjeh4hSD9N7QKqyemwfw');
+        }
         echo json_encode($data);
     }
 
@@ -30,23 +37,41 @@ class VideoController extends Controller
 
     public function insert (YoutubeRequest $request) {
         $youtube = new Youtube();
-        $youtube->cid = $request->selCate;
-        $cate_id = DB::table('categories')->where('id', '=', (int)$request->selCate)->select('categories.pid')->get();
-        $youtube->pid = $cate_id[0]->pid;
-        $youtube->uid = Auth::user()->id;
-        $youtube->title = $request->txtTitle;
-        $youtube->alias = $request->txtLink;
-        $youtube->time_video = $request->time_video;
-        $youtube->viewCount = $request->sumView;
-        $youtube->likeCount = $request->sumLike;
-        $youtube->dislikeCount = $request->sumDislike;
-        $youtube->author = $request->nameChange;
-        $youtube->id_video = $request->id_video;
-        $youtube->description = $request->textDes;
-        $youtube->keyword = $request->txtKeyword;
-        $youtube->status = empty($request->video_status) ? 0 : 1;
-        $youtube->created_at = strtotime($request->timeCreated);
-        $youtube->updated_at = strtotime($request->timeCreated);
+        if(empty($request->is_playlist)) {
+            $youtube->cid = $request->selCate;
+            $cate_id = DB::table('categories')->where('id', '=', (int)$request->selCate)->select('categories.pid')->get();
+            $youtube->pid = $cate_id[0]->pid;
+            $youtube->uid = Auth::user()->id;
+            $youtube->title = $request->txtTitle;
+            $youtube->alias = $request->txtLink;
+            $youtube->is_playlist = 0;
+            $youtube->time_video = $request->time_video;
+            $youtube->viewCount = $request->sumView;
+            $youtube->likeCount = $request->sumLike;
+            $youtube->dislikeCount = $request->sumDislike;
+            $youtube->author = $request->nameChange;
+            $youtube->id_video = $request->id_video;
+            $youtube->description = $request->textDes;
+            $youtube->keyword = $request->txtKeyword;
+            $youtube->status = empty($request->video_status) ? 0 : 1;
+            $youtube->created_at = strtotime($request->timeCreated);
+            $youtube->updated_at = strtotime($request->timeCreated);
+        } else {
+            $youtube->cid = $request->selCate;
+            $cate_id = DB::table('categories')->where('id', '=', (int)$request->selCate)->select('categories.pid')->get();
+            $youtube->pid = $cate_id[0]->pid;
+            $youtube->uid = Auth::user()->id;
+            $youtube->title = $request->txtTitle;
+            $youtube->alias = $request->txtLink;
+            $youtube->is_playlist = 1;
+            $youtube->id_playlist = $request->id_playlist;
+            $youtube->count_Video = $request->count_Video;
+            $youtube->id_video = $request->id_video;
+            $youtube->author = $request->nameChange;
+            $youtube->status = empty($request->video_status) ? 0 : 1;
+            $youtube->created_at = strtotime($request->timeCreated);
+            $youtube->updated_at = strtotime($request->timeCreated);
+        }
         $youtube->save();
         return back()->with('success', 'Thêm danh mục thành công.');
     }
@@ -59,23 +84,41 @@ class VideoController extends Controller
 
     public function update (YoutubeRequest $request, $id) {
         $youtube = Youtube::find($id);
-        $youtube->cid = $request->selCate;
-        $cate_id = DB::table('categories')->where('id', '=', (int)$request->selCate)->select('categories.pid')->get();
-        $youtube->pid = $cate_id[0]->pid;
-        $youtube->uid = Auth::user()->id;
-        $youtube->title = $request->txtTitle;
-        $youtube->alias = $request->txtLink;
-        $youtube->time_video = $request->time_video;
-        $youtube->viewCount = $request->sumView;
-        $youtube->likeCount = $request->sumLike;
-        $youtube->dislikeCount = $request->sumDislike;
-        $youtube->author = $request->nameChange;
-        $youtube->id_video = $request->id_video;
-        $youtube->description = $request->textDes;
-        $youtube->keyword = $request->txtKeyword;
-        $youtube->status = empty($request->video_status) ? 0 : 1;
-        $youtube->created_at = strtotime($request->timeCreated);
-        $youtube->updated_at = strtotime($request->timeCreated);
+        if(empty($request->is_playlist)) {
+            $youtube->cid = $request->selCate;
+            $cate_id = DB::table('categories')->where('id', '=', (int)$request->selCate)->select('categories.pid')->get();
+            $youtube->pid = $cate_id[0]->pid;
+            $youtube->uid = Auth::user()->id;
+            $youtube->title = $request->txtTitle;
+            $youtube->alias = $request->txtLink;
+            $youtube->is_playlist = 0;
+            $youtube->time_video = $request->time_video;
+            $youtube->viewCount = $request->sumView;
+            $youtube->likeCount = $request->sumLike;
+            $youtube->dislikeCount = $request->sumDislike;
+            $youtube->author = $request->nameChange;
+            $youtube->id_video = $request->id_video;
+            $youtube->description = $request->textDes;
+            $youtube->keyword = $request->txtKeyword;
+            $youtube->status = empty($request->video_status) ? 0 : 1;
+            $youtube->created_at = strtotime($request->timeCreated);
+            $youtube->updated_at = strtotime($request->timeCreated);
+        } else {
+            $youtube->cid = $request->selCate;
+            $cate_id = DB::table('categories')->where('id', '=', (int)$request->selCate)->select('categories.pid')->get();
+            $youtube->pid = $cate_id[0]->pid;
+            $youtube->uid = Auth::user()->id;
+            $youtube->title = $request->txtTitle;
+            $youtube->alias = $request->txtLink;
+            $youtube->is_playlist = 1;
+            $youtube->id_playlist = $request->id_playlist;
+            $youtube->count_Video = $request->count_Video;
+            $youtube->id_video = $request->id_video;
+            $youtube->author = $request->nameChange;
+            $youtube->status = empty($request->video_status) ? 0 : 1;
+            $youtube->created_at = strtotime($request->timeCreated);
+            $youtube->updated_at = strtotime($request->timeCreated);
+        }
         $youtube->update();
         return back()->with('success', 'Cập nhật danh mục thành công.');
     }

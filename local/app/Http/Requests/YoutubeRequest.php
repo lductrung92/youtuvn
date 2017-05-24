@@ -30,9 +30,6 @@ class YoutubeRequest extends FormRequest
             'txtLink' => 'required',
             'timeCreated' => 'required|date',
             'id_video' => 'required',
-            'textDes' => 'required',
-            'txtKeyword' => 'required',
-            'time_video' => 'required'
         ];
     }
 
@@ -46,9 +43,6 @@ class YoutubeRequest extends FormRequest
             'id_video.required' => '* ID video không được để trống',
             'timeCreated.required' => '* Ngày đăng không thể để trống',
             'timeCreated.date' => '* Kiểu date ông nội',
-            'textDes.required' => '* Mô tả không thể để trống',
-            'txtKeyword.required' => '* Keyword không thể để trống',
-            'time_video.required' => '* Thời lượng video không thể rỗng'
         ];
     }
 }

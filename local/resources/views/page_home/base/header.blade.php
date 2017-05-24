@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="logo-wrap">
                     <h1 id="logo" class="image-logo" itemprop="headline">
-                        <a href="https://demo.mythemeshop.com/video">
+                        <a href="{{ asset('/') }}">
                         <img src="http://democdn.mythemeshop.com/video/files/2014/12/logo1.png" alt="Video" width="100" height="42"></a>
                     </h1><!-- END #logo -->
                 </div>
@@ -14,7 +14,7 @@
                     <nav class="navigation clearfix mobile-menu-wrapper">
                         <ul id="menu-primary-menu" class="menu clearfix">
                             <li id="menu-item-215" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-215">
-                                <a href="http://demo.mythemeshop.com/video/"><i class="fa fa-bars"></i> Home</a>
+                                <a href="{{ asset('/') }}"><i class="fa fa-bars"></i> Home</a>
                             </li>
                             @foreach($main_menu_items as $item)
                             <li id="menu-item-{{ $item->id }}" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-{{ $item->id }}">

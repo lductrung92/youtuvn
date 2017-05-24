@@ -44,7 +44,7 @@ Route::group(['prefix' => 'administrator', 'middleware' => 'is.admin'], function
         Route::post('update/{id}', ['as' => 'youtube_post_update', 'uses' => 'PageAdmin\VideoController@update']);
         Route::get('delete/{id}', ['as' => 'youtube_get_delete', 'uses' => 'PageAdmin\VideoController@delete']);
 
-        Route::get('get_data_video/{url}', ['as' => 'get_data_youtube', 'uses' => 'PageAdmin\VideoController@getDataVideo']);
+        Route::get('get_data_video', ['as' => 'get_data_youtube', 'uses' => 'PageAdmin\VideoController@getDataVideo']);
     });
 
     Route::group(['prefix' => 'role'], function () {
@@ -83,4 +83,5 @@ Route::group(['prefix' => 'member'], function () {
 
 Route::group(['prefix' => '/'], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'PageHome\HomeController@index']);
+    Route::get('{keyword}.html', ['as' => 'home', 'uses' => 'PageHome\DetailController@index']);
 });

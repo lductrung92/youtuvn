@@ -2560,6 +2560,33 @@ pre:before {
     margin-left: -33px;
   }
  
-  .container-4:hover button.icon:hover{
+.container-4:hover button.icon:hover{
     background: white;
-  }
+}
+
+
+.pagination li {
+    float: left;
+    text-align: center;
+}
+
+.pagination li span{
+    color: #fff;
+    background: #000;
+    margin: 0;
+    display: inline-block;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 0 5px;
+    border-radius: 15px;
+    text-align: center;
+    min-width: 30px;
+    line-height: 30px;
+    box-sizing: border-box;
+    margin: 0 2px 5px;
+
+}
+
+.pagination li span:hover{
+    cursor: not-allowed;
+}

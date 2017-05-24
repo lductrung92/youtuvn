@@ -39,13 +39,11 @@
 <div class="main-container">
     
     @include('page_home.base.header')
-
-    <div id="page">
-        @yield('content')
-    </div><!--#page-->
+    
+    @yield('content')
 
     @include('page_home.base.footer')
 </div><!--.main-container-->
-
+    @yield('js')
 </body>
 </html>

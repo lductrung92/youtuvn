@@ -36,7 +36,7 @@
             @foreach($videos as $video)
             <tr>
                 <td>{{ $video->category->title }}</td>
-                <td><a href="{{ asset('/') . $video->category->alias }}/{{ $video->alias }}.html">{{ $video->title }}</a></td>
+                <td><a href="{{ asset('/') }}/{{ $video->alias }}.html">{{ $video->title }}</a></td>
                 <td>{{ $video->viewCount }}</td>
                 <td>{{ $video->likeCount }}</td>
                 <td>{{ $video->dislikeCount }}</td>

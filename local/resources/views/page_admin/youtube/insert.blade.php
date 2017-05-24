@@ -77,15 +77,25 @@
                     <div class="col-md-6">
                         <fieldset>
                             <legend class="text-semibold"><i class="icon-youtube3"></i> Video</legend>
+
                             <div class="form-group">
-                                <label>Nhập id video:</label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" class="styled" name="is_playlist">
+                                    PlayList
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nhập url video:</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="urlVideoYoutube" placeholder="Nhập id video youtube">
+                                    <input type="text" class="form-control" name="urlVideoYoutube" placeholder="Nhập url video youtube">
                                     <span class="input-group-btn">
                                         <button class="btn btn-primary" type="button" id="getData">Lấy data</button>
                                     </span>
                                 </div>
                             </div>
+
+                            
 
                             <div id="result_data_01" style="display: none">
                                 <div class="form-group" id="selCate">
@@ -101,6 +111,14 @@
                                         @endif
                                     </select>
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="styled" name="video_status" checked>
+                                        Hiển thị
+                                    </label>
+                                </div>
+
                                 <div class="form-group {{ empty($errors->messages()['txtTitle']) ? '' : 'has-error' }}">
                                     <label>Tiêu đề video:</label>
                                     <input type="text" class="form-control" name="txtTitle" placeholder="Nhập tiêu đề video">
@@ -113,30 +131,25 @@
                                     <span class="help-block">{{ empty($errors->messages()['txtLink']) ? '' : showError($errors->messages()['txtLink']) }}</span>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" id="sumView">
                                     <label>Tổng lượt truy cập:</label>
                                     <input type="text" class="form-control" name="sumView" placeholder="Tổng lượt xem">
                                 </div>
 
-                                <div class="form-group {{ empty($errors->messages()['time_video']) ? '' : 'has-error' }}">
+                                <div class="form-group {{ empty($errors->messages()['time_video']) ? '' : 'has-error' }}" id="time_video">
                                     <label>Độ dài video:</label>
-                                    <input type="text" class="form-control" name="time_video" placeholder="Tên kênh youtube">
+                                    <input type="text" class="form-control" name="time_video" placeholder="Độ dài video">
                                     <span class="help-block">{{ empty($errors->messages()['time_video']) ? '' : showError($errors->messages()['time_video']) }}</span>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" id="sumLike">
                                     <label>Like:</label>
                                     <input type="text" class="form-control" name="sumLike" placeholder="Tổng lượt thích">
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" id="sumDislike">
                                     <label>Dislike:</label>
                                     <input type="text" class="form-control" name="sumDislike" placeholder="Tổng lượt không thích">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Tên kênh:</label>
-                                    <input type="text" class="form-control" name="nameChange" placeholder="Tên kênh youtube">
                                 </div>
 
                             </div>
@@ -149,8 +162,23 @@
                                 <legend class="text-semibold"><i class="icon-feed2"></i></legend>
 
                                 <div class="form-group">
+                                    <label>Tên kênh:</label>
+                                    <input type="text" class="form-control" name="nameChange" placeholder="Tên kênh youtube">
+                                </div>
+
+                                <div class="form-group">
                                     <label>ID Video:</label>
-                                    <input type="text" class="form-control" name="id_video" placeholder="Url video">
+                                    <input type="text" class="form-control" name="id_video" placeholder="ID Video">
+                                </div>
+
+                                <div class="form-group" id="id_playlist">
+                                    <label>ID PlayList:</label>
+                                    <input type="text" class="form-control" name="id_playlist" placeholder="ID PlayList">
+                                </div>
+
+                                <div class="form-group" id="count_Video">
+                                    <label>Số lượng Video:</label>
+                                    <input type="text" class="form-control" name="count_Video" placeholder="Số lượng Video">
                                 </div>
 
                                 <div class="form-group {{ empty($errors->messages()['txtLink']) ? '' : 'has-error' }}">
@@ -159,21 +187,16 @@
                                     <span class="help-block">{{ empty($errors->messages()['txtLink']) ? '' : showError($errors->messages()['txtLink']) }}</span>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" id="textDes"> 
                                     <label>Mô tả: </label>
                                     <textarea id="some-textarea" rows="15" class="form-control" name="textDes" placeholder="Nhập mô tả"></textarea>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" id="txtKeyword">
                                     <label>Keyword: </label>
                                     <textarea rows="5" cols="5" class="form-control" name="txtKeyword" placeholder="Nhập keyword"></textarea>
                                 </div>
-                                <div class="form-group">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" class="styled" name="video_status" checked>
-                                        Hiển thị
-                                    </label>
-                                </div>
+                                
                             </fieldset>
                         </div>
                     </div>
@@ -195,8 +218,13 @@
         $(document).ready(function () {
             $("#getData").click(function () {
                 var url = $("input[name=urlVideoYoutube]").val();
-                var videoid = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
-                if(videoid != null) {
+                var is_playlist = 0;
+                if ($("input[type=checkbox][name=is_playlist]").is(":checked"))
+                {
+                   is_playlist = 1;
+                }
+
+                if(url != null) {
                     var title = $("input[name=txtTitle]");
                     var txtLink = $("input[name=txtLink]");
                     var sumView = $("input[name=sumView]");
@@ -207,6 +235,8 @@
                     var timeCreated = $("input[name=timeCreated]");
                     var txtKeyword = $("textarea[name=txtKeyword]");
                     var textDes = $("textarea[name=textDes]");
+                    var count_Video = $("input[name=count_Video]");
+                    var id_playlist = $("input[name=id_playlist]");
 
                     $("#form_get_video").block({ 
                         message: '<i class="icon-spinner2 spinner"></i>',
@@ -223,20 +253,47 @@
                         }
                     });
                     $.ajax({
-                        url: 'administrator/youtube/get_data_video/'+videoid[1],
+                        url: 'administrator/youtube/get_data_video',
                         type: 'GET',
+                        data: {url, is_playlist},
                         success: function(data){ 
                             var obj = JSON.parse(data);
-                            title.val(obj["title"]);
-                            txtLink.val(obj["link_custom"]);
-                            sumView.val(obj["viewCount"]);
-                            sumLike.val(obj["likeCount"]);
-                            sumDislike.val(obj["dislikeCount"]);
-                            nameChange.val(obj["author"]);
-                            id_video.val(obj["id_video"]);
-                            timeCreated.val(obj["published"]);
-                            txtKeyword.val(obj["keyword"]);
-                            $("#some-textarea").data("wysihtml5").editor.setValue(obj["description"]);
+                            if(obj["is_playlist"] == 1) {
+                                title.val(obj["title"]);
+                                txtLink.val(obj["link_custom"]);
+                                nameChange.val(obj["author"]);
+                                timeCreated.val(obj["published"]);
+                                id_video.val(obj["id_video"]);
+                                count_Video.val(obj["count_Video"]);
+                                id_playlist.val(obj["id_playlist"]);
+                                $("#sumView").hide();
+                                $("#sumLike").hide();
+                                $("#sumDislike").hide();
+                                $("#textDes").hide();
+                                $("#txtKeyword").hide();
+                                $("#time_video").hide();
+                                $("#count_Video").show();
+                                $("#id_playlist").show();
+                            } else {
+                                title.val(obj["title"]);
+                                txtLink.val(obj["link_custom"]);
+                                sumView.val(obj["viewCount"]);
+                                sumLike.val(obj["likeCount"]);
+                                sumDislike.val(obj["dislikeCount"]);
+                                nameChange.val(obj["author"]);
+                                id_video.val(obj["id_video"]);
+                                timeCreated.val(obj["published"]);
+                                txtKeyword.val(obj["keyword"]);
+                                $("#some-textarea").data("wysihtml5").editor.setValue(obj["description"]);
+                                $("#count_Video").hide();
+                                $("#id_playlist").hide();
+                                $("#sumView").show();
+                                $("#sumLike").show();
+                                $("#sumDislike").show();
+                                $("#textDes").show();
+                                $("#txtKeyword").show();
+                                $("#time_video").show();
+                            }
 
                             $("#result_data_01").show();
                             $("#result_data_02").show();
